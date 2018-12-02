@@ -79,14 +79,22 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="研究问题：在给定特征图下，通过通道和空间两个维度推导出注意力图，然后将注意力图乘到输入的特征图上以用来自适应的细化输入的特征。设计的CBAM是一个轻量的模块，可以方便的集成在任意的CNN模型中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文阅读-CBAM: Convolutional Block Attention Module">
+<meta property="og:url" content="http://yoursite.com/2018/12/02/论文阅读-CBAM-Convolutional-Block-Attention-Module/index.html">
 <meta property="og:site_name" content="Yeyi&#39;s Blog">
+<meta property="og:description" content="研究问题：在给定特征图下，通过通道和空间两个维度推导出注意力图，然后将注意力图乘到输入的特征图上以用来自适应的细化输入的特征。设计的CBAM是一个轻量的模块，可以方便的集成在任意的CNN模型中。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-02T09:04:38.759Z">
+<meta property="og:image" content="http://yoursite.com/img/cbam.png">
+<meta property="og:image" content="http://yoursite.com/img/cbam1.png">
+<meta property="og:image" content="http://yoursite.com/img/cbam3.png">
+<meta property="og:image" content="http://yoursite.com/img/cbam2.png">
+<meta property="og:updated_time" content="2018-12-02T11:21:41.286Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="论文阅读-CBAM: Convolutional Block Attention Module">
+<meta name="twitter:description" content="研究问题：在给定特征图下，通过通道和空间两个维度推导出注意力图，然后将注意力图乘到输入的特征图上以用来自适应的细化输入的特征。设计的CBAM是一个轻量的模块，可以方便的集成在任意的CNN模型中。">
+<meta name="twitter:image" content="http://yoursite.com/img/cbam.png">
 
 
 
@@ -116,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/02/论文阅读-CBAM-Convolutional-Block-Attention-Module/">
 
 
 
 
 
-  <title>tags | Yeyi's Blog</title>
+  <title>论文阅读-CBAM: Convolutional Block Attention Module | Yeyi's Blog</title>
   
 
 
@@ -279,40 +287,154 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/02/论文阅读-CBAM-Convolutional-Block-Attention-Module/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yeyi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yeyi's Blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                暂无标签
-            </div>
-            <div class="tag-cloud-tags">
+          <h1 class="post-title" itemprop="name headline">论文阅读-CBAM: Convolutional Block Attention Module</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
               
-            </div>
-          </div>
-        
-      </div>
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-02T18:55:29+08:00">
+                2018-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/论文/" itemprop="url" rel="index">
+                    <span itemprop="name">论文</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="研究问题："><a href="#研究问题：" class="headerlink" title="研究问题："></a>研究问题：</h1><p>在给定特征图下，通过通道和空间两个维度推导出注意力图，然后将注意力图乘到输入的特征图上以用来自适应的细化输入的特征。设计的CBAM是一个轻量的模块，可以方便的集成在任意的CNN模型中。<br><a id="more"></a></p>
+<h1 id="相关信息："><a href="#相关信息：" class="headerlink" title="相关信息："></a>相关信息：</h1><p>1、VGGNet通过堆积相同的形状的块并不会使得结果变差；ResNet使用了跳跃连接与相同的拓扑残差块构建了非常深的网络；GoogleNet表明增加网络的宽度可以改善网络的性能；Xception和ResNeXt表明基数比深度与宽度这两个因素具有更强的表示能力。</p>
+<p>2、注意力机制不仅可以将注意力集中在感兴趣的区域，还能够提高感兴趣区域的表现力。论文的目的就在于利用注意力机制，关注重要的特征并抑制不重要的特征。</p>
+<p>3、卷积操作本质是通过跨通道与空间来提取特征，所以论文就分别设计了通道与空间两个注意力模块。</p>
+<h1 id="网络架构："><a href="#网络架构：" class="headerlink" title="网络架构："></a>网络架构：</h1><p>1、<br>分为两个子模块，一个是通道注意力模块，一个是空间注意力模块。具体原理如下：<br><img src="/img/cbam.png" alt=""><br>给定一个特征图$F \in {\mathbb{R}^{C \times H \times W}}$，生成的通道注意力图为${M_c} \in {\mathbb{R}^{C \times 1 \times 1}}$，空间注意力图为${M_s} \in {\mathbb{R}^{1 \times H \times W}}$，对注意力过程总结如下：<br>$$\begin{array}{c}<br>{M_c}(F) = \sigma (MLP(AvgPool(F)) + MLP(MaxPool(F)))\<br> = \sigma ({W_1}({W_0}(F_{avg}^c)) + {W_1}({W_0}(F_{\max }^c)))<br>\end{array}$$</p>
+<p>概括来说，就是输入特征图依次与通道注意力图与空间注意力图作点乘，最终得到更加细化的特征图。</p>
+<p>2、<br>1）通道注意力模块：<br><img src="/img/cbam1.png" alt=""></p>
+<p>通道注意力图主要是由通道之间的关系得到，过去人们常用平均池化来聚合空间信息，但论文认为最大池化或许能捕获到另外一些重要的特征，所以论文同时使用了平均池化与最大池化。为了降低运算量，首先对特征图的空间维度进行了压缩，之后并行的两种池化操作，将结果输入到一个多层感知机中，最后将结果对应元素相加即得到通道注意力图，公式表示如下：</p>
+<p>2）空间注意力模块<br><img src="/img/cbam3.png" alt=""></p>
+<p>通道注意力关注的是目标是什么，而空间注意力则关注的是目标在哪，二者可以相互补充。论文在通道轴上使用了最大池化与平均池化并将其结合起来，之后通过一个标准的卷积操作，得到空间注意力图。其用公式总结如下：</p>
+<p>3、经过试验验证，模块插入方式如下：<br><img src="/img/cbam2.png" alt=""></p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -345,8 +467,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -397,6 +528,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#研究问题："><span class="nav-number">1.</span> <span class="nav-text">研究问题：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关信息："><span class="nav-number">2.</span> <span class="nav-text">相关信息：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络架构："><span class="nav-number">3.</span> <span class="nav-text">网络架构：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
