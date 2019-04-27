@@ -5,15 +5,15 @@
 # Site
 title: Yeyi's Blog
 subtitle:  脚踏实地，仰望星空
-description: 
+description:
 keywords:
 author: Yeyi
-language: zh-Hans 
+language: zh-Hans
 timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://nangongtianyi.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -43,7 +43,7 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
-  
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
@@ -52,7 +52,7 @@ index_generator:
   path: ''
   per_page: 10
   order_by: -date
-  
+
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -79,7 +79,10 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:nangongtianyi/nangongtianyi.github.io.git
+  repo:
+    # github: git@github.com:nangongtianyi/nangongtianyi.github.io.git,master
+    github: https://github.com/nangongtianyi/nangongtianyi.github.io.git
+    coding: https://git.dev.tencent.com/yeyi999/githubio.git
   branch: master
 
 search:
