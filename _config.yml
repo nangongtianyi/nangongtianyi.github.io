@@ -82,7 +82,7 @@ deploy:
   repo:
     # github: git@github.com:nangongtianyi/nangongtianyi.github.io.git,master
     github: https://github.com/nangongtianyi/nangongtianyi.github.io.git
-    coding: https://git.dev.tencent.com/yeyi999/githubio.git
+    # coding: https://git.dev.tencent.com/yeyi999/githubio.git
   branch: master
 
 search:
