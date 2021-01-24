@@ -12,7 +12,7 @@ mathjax: true
 
 <!-- more -->
 
-**定义2.1：**实系数单变量多项式是输入为实数输出也为实数的一种函数，形式如下：
+**定理2.1：**实系数单变量多项式是输入为实数输出也为实数的一种函数，形式如下：
 $$
 f(x) = {a_0} + {a_1}x + {a_2}{x^2} + ... + {a_n}{x^n}
 $$
@@ -29,7 +29,7 @@ $$
 
 了解了一些基本的概念之后，可以着手实现前文所述的加密，这里需要利用到以下的定理：经过给定点集的多项式的存在性与唯一性定理。
 
-**定义2.2：**对任意整数$n \ge 0$和属于$\mathbb{R}^{2}$的$n+1$个点的点集$({x_0},{y_0}),({x_1},{y_1}),...,({x_n},{y_n})$，其中${x_0} < {x_1} < {x_2} < ... < {x_n}$，存在一个唯一的$n$次多项式，使得对所有的$i$有$p({x_i}) = {y_i}$。
+**定理2.2：**对任意整数$n \ge 0$和属于$\mathbb{R}^{2}$的$n+1$个点的点集$({x_0},{y_0}),({x_1},{y_1}),...,({x_n},{y_n})$，其中${x_0} < {x_1} < {x_2} < ... < {x_n}$，存在一个唯一的$n$次多项式，使得对所有的$i$有$p({x_i}) = {y_i}$。
 
 其中，$\mathbb{R}^{2}$代表了一对实数，每个实数都属于$\mathbb{R}$，类似的，$\mathbb{Z}^{3}$代表一个整数的三元组。
 
@@ -73,3 +73,88 @@ for (i = 0; i <= n; i++) {
 return theSum;
 ```
 
+下面证明唯一性，依赖如下定理：
+
+**定理2.3：**零多项式是实数内唯一一个次数最多为$n$，但有超过$n$个不同根的多项式。
+
+现在来进行证明，假设有两个$n$次的多项式，经过点集$({x_1},{x_2}),...,({x_{n + 1} },{y_{n + 1} })$，这两个多项式可以相同也可以不同，我们所要做的是证明这两个多项式必须相同，那么就证明了唯一性。现在构造这样一个多项式$(f - g)(x)$，定义$(f - g)(x) = f(x) - g(x)$，如果$f$的系数为$a_i$，$g$的系数为$b_i$，那么$f-g$的系数为$c_i=a_i-b_i$，显然$f-g$是一个多项式。我们对这个多项式了解多少呢，首先，这个多项式的次数最多是$n$，而且我们知道$(f - g)({x_i}) = 0$。现在我们使用定义2.3，我们假定$f-g$的次数为$d \leqslant n$，我们知道此多项式的根不超过$n$个，除非它是零多项式，但有$n+1$个点（即上文所述点集中的点）可以使上式成立，因此这是一个零多项式，因此$f$跟$g$相同。
+
+既然已经通过给定点集证明了$n$次多项式的存在性和唯一性，那么就可以为其命名，成为给定点的插值多项式，插值意味着获取点集，并找到通过这些点的唯一最小次多项式。
+
+## 代码实现
+
+以下将编写一个插值点的python程序，将假设存在一个多项式类，该类接受一系列参数并生成多项式，如下：
+
+```
+def interpolate(points):
+    """Return the unique polynomial of degree at most n passing through the given n+1 points."""
+    if len(points) == 0:
+        raise ValueError('Must provide at least one point.')
+
+    x_values = [p[0] for p in points]
+    if len(set(x_values)) < len(x_values):
+        raise ValueError('Not all x values are distinct.')
+
+    terms = [single_term(points, i) for i in range(0, len(points))]
+    return sum(terms, ZERO)
+```
+
+输入点集后，通过single_term函数生成单项，将这些单项相加即是多项式，生成单项的代码如下：
+
+```
+def single_term(points, i):
+    """Return one term of an interpolated polynomial.
+
+    This method computes one term of the sum from the proof of Theorem 2.2.
+    In particular, it computes:
+
+      y_i \product_{j=0}^n (x - x_i) / (x_i - x_j)
+
+    The encapsulating `interpolate` function sums these terms to construct
+    the final interpolated polynomial.
+
+    Arguments:
+      - points: a list of (float, float)
+      - i: an integer indexing a specific point
+
+    Returns:
+      A Polynomial instance containing the desired product.
+    """
+    the_term = Polynomial([1.])
+    xi, yi = points[i]
+
+    for j, p in enumerate(points):
+        if j == i:
+            continue
+
+        xj = p[0]
+
+        """
+        The inlined Polynomial instance below is how we represent
+
+          (x - x_i) / (x_i - x_j)
+
+        using our Polynomial data type (where t is the variable, and
+        x_i, x_j are two x-values of data points):
+
+          (x - x_i) / (x_i - x_j) = (-x_j / (x_i - x_j)) * t^0
+                                  +    (1 / (x_i - x_j)) * t^1
+        """
+        the_term = the_term * Polynomial([-xj / (xi - xj), 1.0 / (xi - xj)])
+
+    # Polynomial([yi]) is a constant polynomial, i.e., we're scaling the_term
+    # by a constant.
+    return the_term * Polynomial([yi])
+```
+
+这里利用了上文所述的构造方法，每一项为${y_i}(x - {x_j})/({x_i} - {x_j})$，这里将其分解成了${a_0} =  - {x_j}/({x_i} - {x_j})$和${a_1} = 1/({x_i} - {x_j})$来生成一个简单的多项式。
+
+## 实践
+
+以下将使用多项式插值来实现加密。假设武林盟主有五个得力手下，他向他们分享一个秘密，秘密以二进制表示，也许这个秘密是一张藏宝图。问题在于这些手下是贪婪的，如果直接把秘密给他们，或许有人会直接独吞藏宝图；如果只给一部分，他们也有可能直接找到藏宝图，更糟糕的是，如果三个人聚在一起，很可能会猜中剩余的部分，排除掉另外两人。因此，为了安全，这个秘密应该具有以下的属性：
+
+1. 每个人只有获得了部分秘密，且这部分是独一无二的；
+2. 如果任意四个人聚在一起共享秘密，他们也不能得到完整的秘密；
+3. 如果五个人全部聚在一起，他们才能得到完整的秘密，拿到藏宝图。
+
+实际上，任意四个人聚在一起不只是不能获取完整的秘密，他们甚至破译不出任何秘密。神奇的是是有这种方案的，无论有多少个人（$n$），或者是希望有多少组（$k$）能重建秘密，这都是可能的。以下给出这种方案，即使用多项式插值。我们将秘密用整数$s$表示，现在我们想让五个手下齐聚能得到秘密，因此$k$就是5，那么我们要构造的多项式的次数就是$k-1$也就是4，系数随机生成即可，然后将$f(1),f(2),f(3),f(4),f(5)$分发作为秘密的部分分发给手下，这样，只有五个人齐聚才能拿到藏宝图。
