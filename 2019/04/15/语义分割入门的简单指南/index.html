@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="h9QggzICLRyISDNKnnPLBjyI2fcSeQpaRn8jFUNW4GE">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="语义分割是一种在图像上将标签分给每一个像素的过程。这与分类形成了鲜明的对比，分类任务是将单个的标签分配给整张图片。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="语义分割入门的简单指南">
+<meta property="og:url" content="http://nangongtianyi.github.io/2019/04/15/语义分割入门的简单指南/index.html">
+<meta property="og:site_name" content="Yeyi&#39;s Blog">
+<meta property="og:description" content="语义分割是一种在图像上将标签分给每一个像素的过程。这与分类形成了鲜明的对比，分类任务是将单个的标签分配给整张图片。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/ss.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/catmixdog.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/crf.jpeg">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/fcn_.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/chess.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/Unet.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/t.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/PSP.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/AC.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/aspp.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/crf.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/onehot.jpeg">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/focal.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/dice1.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/dice2.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/autovehicles.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/m.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/su.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/dress.png">
+<meta property="og:image" content="http://nangongtianyi.github.io/img/satel.png">
+<meta property="og:updated_time" content="2021-01-24T08:52:17.149Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="语义分割入门的简单指南">
+<meta name="twitter:description" content="语义分割是一种在图像上将标签分给每一个像素的过程。这与分类形成了鲜明的对比，分类任务是将单个的标签分配给整张图片。">
+<meta name="twitter:image" content="http://nangongtianyi.github.io/img/ss.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://nangongtianyi.github.io/2019/04/15/语义分割入门的简单指南/">
+
+
+
+
+
+  <title>语义分割入门的简单指南 | Yeyi's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Yeyi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">脚踏实地，仰望星空</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://nangongtianyi.github.io/2019/04/15/语义分割入门的简单指南/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yeyi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yeyi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">语义分割入门的简单指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-15T18:18:26+08:00">
+                2019-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/文章/" itemprop="url" rel="index">
+                    <span itemprop="name">文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>语义分割是一种在图像上将标签分给每一个像素的过程。这与分类形成了鲜明的对比，分类任务是将单个的标签分配给整张图片。<a id="more"></a>语义分割将同一类的不同目标视为相同的对象。而实例分割则是将同一类的不同目标视为不同的对象（或者叫做实例）。通常情况下，实例分割比语义分割更加困难。本博客探讨了基于传统的与深度学习理论来进行语义分割的一些方法。而且，还讨论了一些较为流行的损失函数选择与应用。<br><img src="/img/ss.png" alt=""></p>
+<h1 id="传统方法"><a href="#传统方法" class="headerlink" title="传统方法"></a>传统方法</h1><p>在深度学习时代到来之前，我们使用了大量的图像处理技术将图像分割成许多感兴趣的的区域。我们将一些流行的方法罗列在下方：</p>
+<h2 id="灰度分割"><a href="#灰度分割" class="headerlink" title="灰度分割"></a>灰度分割</h2><p>最简单的语义分割方法是找到某个满足硬编码的规则或属性的区域，再为这个区域分配特定的标签。这种规则可以根据像素的属性来构建，例如它的灰度级。使用这种技术的一种方法是<a href="https://en.wikipedia.org/wiki/Split_and_merge_segmentation" target="_blank" rel="noopener">Split and Merge</a>算法。这种算法递归的将图像分割成子区域，直到分配了特定的标签，之后合并带有相同标签的相邻区域。</p>
+<p>这种算法的问题在于其规则必须是一种硬编码。而且，仅仅使用灰度信息来表示诸如人类这样的复杂类别是极其困难的。因此，我们需要使用特征提取与优化技术来学习这样复杂类别的正确表示。</p>
+<h2 id="条件随机场"><a href="#条件随机场" class="headerlink" title="条件随机场"></a>条件随机场</h2><p>我们考虑通过训练一个模型给每个像素分类来分割图像。如果模型不够完美，我们可能会获得一个不那么自然的嘈杂分割结果（例如下图所示，狗跟猫的像素混在一起）。<br><img src="/img/catmixdog.png" alt=""><br>这种事情可以通过考虑像素之间的先验关系来避免，比如目标的像素是连续的，因此相邻的像素趋向于有着相同的标签。为了建模这种关系，我们考虑使用条件随机场（CRFs）。</p>
+<p>CRFs是一类针对于结构化预测的概率建模方法。与离散的分类器不同，CRFs在做出预测之前，会考虑近邻语义，例如像素之间的关系。这就使这种方法成了语义分割的理想选择。本小节探讨了CRFs在语义分割中的使用。</p>
+<p>图像中的每一个像素都与一组可能状态的有限集有关。在我们的例子中，标签是可能状态的集合。将一种状态分配给一个像素所花费的代价称为unary cost。为了建模像素间的关系，我们将一对标签$(u,v)$分配给一对像素$(x,y)$的代价称为pairwise cost。我们可以从成对的像素来考虑，把它们看作直接的近邻（Grid CRF），或者我们可以从图像的所有像素来考虑（Dense CRF）。<br><img src="/img/crf.jpeg" alt=""><br>所有像素的unary cost和pairwise cost之和作为CRF的energy(或者叫做代价或损失)。通过最小化上述值来获得较好的分割结果。</p>
+<h1 id="深度学习方法"><a href="#深度学习方法" class="headerlink" title="深度学习方法"></a>深度学习方法</h1><p>深度学习极大的简化了语义分割的方法，并产生了极高质量的结果。在本章节中，我们讨论了训练这些深度学习方法的流行的模型架构与损失函数。</p>
+<h2 id="1-模型结构"><a href="#1-模型结构" class="headerlink" title="1. 模型结构"></a>1. 模型结构</h2><p>用于语义分割最流行最简单的架构是全卷积网络(FCN)。在论文<a href="https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf" target="_blank" rel="noopener">FCN for Semantic Segmentation</a>中，作者使用了FCN通过卷积操作下采样了图像到一个较小的尺寸（同时得到了更多的通道），这些卷积的集合一般被称为编码器。之后，编码的结果要么经过双线性插值，要么经过一系列的转置卷积，来进行上采样操作。这些转置卷积的集合一般被称作解码器。<br><img src="/img/fcn_.png" alt=""><br>尽管这种基础的架构非常有效，但也有一些缺点。一种缺点就是由于这些转置卷积（或者叫做反卷积）操作会输出不均匀的重叠，会存在棋盘伪像的现象。<br><img src="/img/chess.png" alt=""><br>另一个缺点是在编码的过程中损失了信息，从而在边缘处分辨率较差。</p>
+<p>之后有学者提出了一些改善基本FCN模型性能的方法，以下是一些被证明有效的较为流行的解决方案。</p>
+<h3 id="U-Net"><a href="#U-Net" class="headerlink" title="U-Net"></a>U-Net</h3><p><a href="https://arxiv.org/abs/1505.04597" target="_blank" rel="noopener">U-Net</a>是简单的FCN架构的升级版本。在卷积块的输出和与之相匹配的转置卷积的输入之间，Unet网络加入了跳跃连接。<br><img src="/img/Unet.png" alt=""><br>这种跳跃连接使梯度能够更好的流动，并提供了来自不同尺度图片的信息。较大尺度图片的信息（来自浅层）可以帮助模型分类更加精准，小尺度的信息（来自深层）可以帮助模型分割或者定位的更好。</p>
+<h3 id="Tiramisu-Model"><a href="#Tiramisu-Model" class="headerlink" title="Tiramisu Model"></a>Tiramisu Model</h3><p><a href="https://arxiv.org/abs/1611.09326" target="_blank" rel="noopener">Tiramisu</a>模型与Unet较为相似，不同之处在于这种模型使用了<a href="https://arxiv.org/pdf/1608.06993.pdf" target="_blank" rel="noopener">DenseNet</a>中的Dense blocks来做卷积与转置卷积。一个Dense block有一些卷积层组成，前面所有层的特征图都作为后面层的输入。这种合成的网络具有极高的参数效率，可以更好的利用前面一些层的特征。<br><img src="/img/t.png" alt=""><br>这种方法也存在缺点。由于ML框架之间的连接操作，这种方法的内存效率不是很高（需要较大的GPU才能运行）。</p>
+<h3 id="多尺度方法"><a href="#多尺度方法" class="headerlink" title="多尺度方法"></a>多尺度方法</h3><p>一些深度学习模型明确的使用了一些方法来整合多尺度的信息。举例来说，<a href="https://arxiv.org/pdf/1612.01105.pdf" target="_blank" rel="noopener">PSPNet</a>使用四种不同的卷积核大小和步长来对卷积网络的输出做池化操作，之后使用双线性插值将所有池化的输出与卷积层的输出特征图进行上采样，在通道维度上连接它们。最后对这个连接的输出进行卷积产生最终的预测结果。<br><img src="/img/PSP.png" alt=""><br>空洞卷积是一种结合多尺度信息的有效方法，而且其没有增加参数的数量。通过调整空洞率，相同滤波器的权重在空间上可以分布的更广，这使得网络可以学习到更加全局化的上下文语义信息。<br><img src="/img/AC.png" alt=""><br><a href="https://arxiv.org/pdf/1706.05587.pdf" target="_blank" rel="noopener">DeepLabv3</a>使用了不同空洞率的空洞卷积来捕获不同尺度的信息，而且没有明显的损失图像的分辨率。他们实验了一种级联的空洞卷积，也实验了一种并联的方式，被称为空洞空间金字塔池化（如下图所示）。<br><img src="/img/aspp.png" alt=""></p>
+<h3 id="混合CNN-CRF方法"><a href="#混合CNN-CRF方法" class="headerlink" title="混合CNN-CRF方法"></a>混合CNN-CRF方法</h3><p>一些方法使用了CNN作为特征提取器，然而将输出的特征作为unary cost(potential)输入到了密集的CRF中。由于这种混合的CNN-CRF方法具有较强的像素关系建模能力，因此能得到较好的结果。<br><img src="/img/crf.png" alt=""><br>而某些方法直接将CRF嵌入到了神经网络中，如同在<a href="https://www.robots.ox.ac.uk/~szheng/papers/CRFasRNN.pdf" target="_blank" rel="noopener">CRF-as-RNN</a>中密集CRF可以被RNN建模。如上图所示，这使得端到端训练成为可能。</p>
+<h2 id="2-损失函数"><a href="#2-损失函数" class="headerlink" title="2.损失函数"></a>2.损失函数</h2><p>与普通的分类不同，语义分割必须挑选一些不同的损失函数。下面是一些语义分割较为常用的损失函数：</p>
+<h3 id="Pixel-wise-Softmax-with-Cross-Entropy"><a href="#Pixel-wise-Softmax-with-Cross-Entropy" class="headerlink" title="Pixel-wise Softmax with Cross Entropy"></a>Pixel-wise Softmax with Cross Entropy</h3><p>语义分割标签的尺寸必须与原始图片相同。标签可以被编码成one-hot形式，如下图所示：<br><img src="/img/onehot.jpeg" alt=""><br>由于标签是一种比较方便的one-hot形式，它可以直接被用来和ground truth（目标）一起计算交叉熵。然而，在求交叉熵之前，必须对预测得到的各个像素值执行softmax操作，这是因为每一个像素值都可以代表一类目标。</p>
+<h3 id="Focal-Loss"><a href="#Focal-Loss" class="headerlink" title="Focal Loss"></a>Focal Loss</h3><p><a href="https://arxiv.org/pdf/1708.02002.pdf" target="_blank" rel="noopener">RetinaNet</a>提出的Focal Loss是标准交叉熵的升级版，可以用于一些极端的类不平衡的例子中。</p>
+<p>考虑如下图所示的标准交叉熵（蓝色），即使我们的模型对某个像素值的类别非常自信（达到80%），它仍然具有较大的损失值（大约0.3）。另一方面，当模型对某一类置信度非常高时，Focal Loss（紫色，gamma值为2）不会对模型进行惩罚（当置信度为80%时，损失几乎为0）。<br><img src="/img/focal.png" alt=""></p>
+<p>让我们用一个直观的例子来探索为什么Focal Loss效果如此显著。假设我们有一张总共10000个像素点的图片，图片只有两类：背景（0）和目标（1）。我们假设图片的97%是背景，目标只有3%。现在，假定我们的模型确定了80%的背景，但只确定了30%的目标。</p>
+<p>当我们使用交叉熵的时候，背景像素的损失为$97\%  \times 10000 \times 0.3 = 2850$，目标像素的损失值为$3\%  \times 10000 \times 1.2 = 360$。显然，置信度高的类（即背景类）的损失占主导地位，模型缺乏学习目标类的动力。作为对比，当使用focal loss时，背景类产生的损失值为$97\%  \times 10000 \times 0 = 0$，这使得模型能更好的学习目标类。</p>
+<h3 id="Dice-Loss"><a href="#Dice-Loss" class="headerlink" title="Dice Loss"></a>Dice Loss</h3><p>Dice Loss是另一种处理语义分割类不平衡的较为流行的损失函数。这种损失函数由<a href="https://arxiv.org/pdf/1606.04797.pdf" target="_blank" rel="noopener">V-Net</a>提出，可以用来计算预测与ground truth之间重叠的部分。Dice系数表示如下：<br><img src="/img/dice1.png" alt=""><br>我们的目的是使预测与真值的重叠部分最大化。因此，我们通常最小化$(1-D)$来达到相同的目的，因为大多数的机器学习库只提供最小化的选项。<br><img src="/img/dice2.png" alt=""><br>尽管Dice Loss对于类不平衡的样本效果较好，但我们可以看到其梯度计算公式的分母存在平方项。当某些值很小时，我们可能获得较大的梯度，从而导致训练不稳定。</p>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>语义分割有各种各样的实际生活应用，下面是一些比较常见的用例。</p>
+<h2 id="自动驾驶"><a href="#自动驾驶" class="headerlink" title="自动驾驶"></a>自动驾驶</h2><p>通常使用语义分割来识别车道、车辆、行人和其他感兴趣的目标。分割的结果用来对如何驾驶车辆做出正确的决策。<br><img src="/img/autovehicles.png" alt=""></p>
+<p>自动驾驶的一个限制是要求操作必须是实时的。上述问题的解决方案是将GPU与车辆本地集成到一起。为了增强上述方案的可操作性，可以使用更加轻量化的网络（较少的参数），或者可以使用在一种<a href="https://heartbeat.fritz.ai/how-to-fit-large-neural-networks-on-the-edge-eb621cdbb33" target="_blank" rel="noopener">极限</a>拟合神经网络的技术。</p>
+<h2 id="医疗图像分割"><a href="#医疗图像分割" class="headerlink" title="医疗图像分割"></a>医疗图像分割</h2><p>人们通常使用语义分割来识别医学扫描图中的显著性元素。主要用于识别类似于肿瘤的异常。算法的准确率和低召回率对于这种应用来说非常关键。<br><img src="/img/m.png" alt=""><br>我们还可以自动执行一些不太重要的操作，例如从3D语义分割扫描图像中估计器官的体积。</p>
+<h2 id="景物理解"><a href="#景物理解" class="headerlink" title="景物理解"></a>景物理解</h2><p>语义分割通常是复杂任务的基础，例如场景理解和视觉问答。场景图或者标题通常是场景理解算法的输出。<br><img src="/img/su.png" alt=""></p>
+<h2 id="Fashion-Industry"><a href="#Fashion-Industry" class="headerlink" title="Fashion Industry"></a>Fashion Industry</h2><p>服装行业通常使用语义分割从图像中提取衣服的像素块，用来给零售店提供一些相似的建议。更高级的算法可以给图像中的人物进行重新装扮。<br><img src="/img/dress.png" alt=""></p>
+<h2 id="卫星图像处理"><a href="#卫星图像处理" class="headerlink" title="卫星图像处理"></a>卫星图像处理</h2><p>卫星图像使用语义分割来识别陆地类型。比较典型的例子包括分割水体来提供准确的地图信息。其他高级的用例包括绘制道路，识别作物类型，识别免费停车位等等。<br><img src="/img/satel.png" alt=""></p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>深度学习极大的增强和简化了语义分割算法，为算法的实际应用铺平了道路。本博客列出的概念并非详尽无遗，因为研究团队正努力提高这些算法的准确性与实时性。无论未来发展如何，这篇博客介绍了当下这些算法一些流行的变式以及实际的应用。</p>
+<p>本文译自<a href="https://medium.com/beyondminds/a-simple-guide-to-semantic-segmentation-effcf83e7e54?sk=3d1a5a32a19d611fbd81028cfd4f23fd" target="_blank" rel="noopener">A Simple Guide to Semantic Segmentation</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/24/论文阅读-Auto-DeepLab-Hierarchical-Neural-Architecture-Search-for-Semantic-Image-Segmentation/" rel="next" title="论文阅读-Auto-DeepLab: Hierarchical Neural Architecture Search for Semantic Image Segmentation">
+                <i class="fa fa-chevron-left"></i> 论文阅读-Auto-DeepLab: Hierarchical Neural Architecture Search for Semantic Image Segmentation
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/23/语义分割部分文章概览（四）/" rel="prev" title="语义分割部分文章概览（四）">
+                语义分割部分文章概览（四） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Yeyi</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#传统方法"><span class="nav-number">1.</span> <span class="nav-text">传统方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#灰度分割"><span class="nav-number">1.1.</span> <span class="nav-text">灰度分割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件随机场"><span class="nav-number">1.2.</span> <span class="nav-text">条件随机场</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深度学习方法"><span class="nav-number">2.</span> <span class="nav-text">深度学习方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-模型结构"><span class="nav-number">2.1.</span> <span class="nav-text">1. 模型结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#U-Net"><span class="nav-number">2.1.1.</span> <span class="nav-text">U-Net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tiramisu-Model"><span class="nav-number">2.1.2.</span> <span class="nav-text">Tiramisu Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多尺度方法"><span class="nav-number">2.1.3.</span> <span class="nav-text">多尺度方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混合CNN-CRF方法"><span class="nav-number">2.1.4.</span> <span class="nav-text">混合CNN-CRF方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-损失函数"><span class="nav-number">2.2.</span> <span class="nav-text">2.损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pixel-wise-Softmax-with-Cross-Entropy"><span class="nav-number">2.2.1.</span> <span class="nav-text">Pixel-wise Softmax with Cross Entropy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Focal-Loss"><span class="nav-number">2.2.2.</span> <span class="nav-text">Focal Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dice-Loss"><span class="nav-number">2.2.3.</span> <span class="nav-text">Dice Loss</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用"><span class="nav-number">3.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自动驾驶"><span class="nav-number">3.1.</span> <span class="nav-text">自动驾驶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#医疗图像分割"><span class="nav-number">3.2.</span> <span class="nav-text">医疗图像分割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#景物理解"><span class="nav-number">3.3.</span> <span class="nav-text">景物理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fashion-Industry"><span class="nav-number">3.4.</span> <span class="nav-text">Fashion Industry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卫星图像处理"><span class="nav-number">3.5.</span> <span class="nav-text">卫星图像处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">4.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yeyi</span>
+
+  
+</div>
+
+
+<!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+-->
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
