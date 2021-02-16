@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Yeyi&#39;s Blog">
 <meta property="og:description" content="多项式从加密开始，假设现在有一条秘密消息，将其分成10个部分进行编码，接收方只要知道任意6个部分，就可以重建消息，但如果少于6个部分，甚至不能确定原始消息的一小段，要实现这种方案，多项式足以。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-01-24T11:26:17.276Z">
+<meta property="og:updated_time" content="2021-01-30T03:47:06.759Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Programmer and Mathematics (一)">
 <meta name="twitter:description" content="多项式从加密开始，假设现在有一条秘密消息，将其分成10个部分进行编码，接收方只要知道任意6个部分，就可以重建消息，但如果少于6个部分，甚至不能确定原始消息的一小段，要实现这种方案，多项式足以。">
@@ -411,7 +411,7 @@ f(x) = \sum\limits_{i = 0}^n { {y_i}(\prod\limits_{j \ne i} {\frac{ {x - {x_j} }
 f(x) = \sum\limits_{i = 0}^n {bar(i)(\prod\limits_{j \ne i} {foo(i,j)} )}</script><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i, j;</span><br><span class="line">sometype theSum = defaultSumValue;</span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">	othertype product = defaultProductValue;</span><br><span class="line">	<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt;= n; j++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (j != i) &#123;</span><br><span class="line">			product *= foo(i, j);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	theSum += bar(i) * product;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> theSum;</span><br></pre></td></tr></table></figure>
 <p>下面证明唯一性，依赖如下定理：</p>
 <p><strong>定理2.3：</strong>零多项式是实数内唯一一个次数最多为$n$，但有超过$n$个不同根的多项式。</p>
-<p>现在来进行证明，假设有两个$n$次的多项式，经过点集$({x<em>1},{x_2}),…,({x</em>{n + 1} },{y_{n + 1} })$，这两个多项式可以相同也可以不同，我们所要做的是证明这两个多项式必须相同，那么就证明了唯一性。现在构造这样一个多项式$(f - g)(x)$，定义$(f - g)(x) = f(x) - g(x)$，如果$f$的系数为$a_i$，$g$的系数为$b_i$，那么$f-g$的系数为$c_i=a_i-b_i$，显然$f-g$是一个多项式。我们对这个多项式了解多少呢，首先，这个多项式的次数最多是$n$，而且我们知道$(f - g)({x_i}) = 0$。现在我们使用定义2.3，我们假定$f-g$的次数为$d \leqslant n$，我们知道此多项式的根不超过$n$个，除非它是零多项式，但有$n+1$个点（即上文所述点集中的点）可以使上式成立，因此这是一个零多项式，因此$f$跟$g$相同。</p>
+<p>现在来进行证明，假设有两个$n$次的多项式，经过点集$({x_0},{y_0}),({x_1},{y_1}),…,({x_n},{y_n})$，这两个多项式可以相同也可以不同，我们所要做的是证明这两个多项式必须相同，那么就证明了唯一性。现在构造这样一个多项式$(f - g)(x)$，定义$(f - g)(x) = f(x) - g(x)$，如果$f$的系数为$a_i$，$g$的系数为$b_i$，那么$f-g$的系数为$c_i=a_i-b_i$，显然$f-g$是一个多项式。我们对这个多项式了解多少呢，首先，这个多项式的次数最多是$n$，而且我们知道$(f - g)({x_i}) = 0$。现在我们使用定义2.3，我们假定$f-g$的次数为$d \leqslant n$，我们知道此多项式的根不超过$n$个，除非它是零多项式，但有$n+1$个点（即上文所述点集中的点）可以使上式成立，因此这是一个零多项式，因此$f$跟$g$相同。</p>
 <p>既然已经通过给定点集证明了$n$次多项式的存在性和唯一性，那么就可以为其命名，成为给定点的插值多项式，插值意味着获取点集，并找到通过这些点的唯一最小次多项式。</p>
 <h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>以下将编写一个插值点的python程序，将假设存在一个多项式类，该类接受一系列参数并生成多项式，如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def interpolate(points):</span><br><span class="line">    &quot;&quot;&quot;Return the unique polynomial of degree at most n passing through the given n+1 points.&quot;&quot;&quot;</span><br><span class="line">    if len(points) == 0:</span><br><span class="line">        raise ValueError(&apos;Must provide at least one point.&apos;)</span><br><span class="line"></span><br><span class="line">    x_values = [p[0] for p in points]</span><br><span class="line">    if len(set(x_values)) &lt; len(x_values):</span><br><span class="line">        raise ValueError(&apos;Not all x values are distinct.&apos;)</span><br><span class="line"></span><br><span class="line">    terms = [single_term(points, i) for i in range(0, len(points))]</span><br><span class="line">    return sum(terms, ZERO)</span><br></pre></td></tr></table></figure>
@@ -538,7 +538,7 @@ f(x) = \sum\limits_{i = 0}^n {bar(i)(\prod\limits_{j \ne i} {foo(i,j)} )}</scrip
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
