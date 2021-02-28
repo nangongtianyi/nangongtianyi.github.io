@@ -411,8 +411,8 @@
 <script type="math/tex; mode=display">
 S = \{ x:x \in \mathbb{N},{\text{x is divisible by 7} }\}</script><p><strong>定义4.1：</strong>集合$A$的基数或大小，用$|A|$表示，是集合$A$中元素有限时元素的个数，否则$A$有无效的基数。基数为0的集合称为空集。</p>
 <p><strong>定义4.2：</strong>集合$B$中的元素也是集合$A$的元素，则集合$B$是$A$的子集，表示为$B \subset A$；如果两个集合元素相同，则两个元素相等，即$B \subset A$且$A \subset B$，则$A=B$。</p>
-<p><strong>定义4.3：</strong>给定两个集合$A$和$B$，$B$在$A$中的补集为${ a \in A:a \notin B} $，也可以表示为$A\backslash B$或者$A-B$，当$B \subset A$也可以表示成${B^C}$。</p>
-<p><strong>定义4.4：</strong>给定集合$A,B$，并集为$A \cup B$，代表${x:x \in A{\text{ or } }x \in B}$，交集为$A \cap B$代表${x:x \in A{\text{ and } }x \in B} $。</p>
+<p><strong>定义4.3：</strong>给定两个集合$A$和$B$，$B$在$A$中的补集为$\{ a \in A:a \notin B\} $，也可以表示为$A\backslash B$或者$A-B$，当$B \subset A$也可以表示成${B^C}$。</p>
+<p><strong>定义4.4：</strong>给定集合$A,B$，并集为$A \cup B$，代表$\{x:x \in A{\text{ or } }x \in B\}$，交集为$A \cap B$代表$\{x:x \in A{\text{ and } }x \in B\} $。</p>
 <p><strong>定义4.5：</strong>集合$A,B$的积用$A \times B$表示，代表：</p>
 <script type="math/tex; mode=display">
 A \times B = \{(a,b):a \in A{\text{ and }}b \in B\}</script><p>积是一种将实线$\mathbb{R}$转换为$\mathbb{R}^2$很好用的方式，定义${\mathbb{R}^2} = \mathbb{R} \times \mathbb{R}$，同理${\mathbb{R}^3} = \mathbb{R} \times \mathbb{R} \times \mathbb{R}$，这里可能会有点有疑惑，那就是$\mathbb{R}^3$如何展开，第一种可能性是：</p>
@@ -428,7 +428,7 @@ F = \{ (1,1),(2,4),(3,9),(4,16), \ldots \}  = \{ (x,{x^2}):x \in \mathbb{N}\}</s
 <p>至于为什么使用集合的术语来定义函数，部分是由于历史的原因，这里不对此做陈述，只需要知道集合是数学的基础即可。对于我们来讲，我们将函数看作与常规集合不同，函数具有语义上的输入输出依赖关系，我们将集合视作一种工具，用于帮助我们阐明概念或者消除一些定义中的歧义。现在，我们来看一下一些有关函数输入输出子集的有关定义。</p>
 <p><strong>定义4.7：</strong>给定函数$f:A \to B$，我们定义$f$的像为：</p>
 <script type="math/tex; mode=display">
-f(A)=\{f(a):a \in A\}</script><p><strong>定义4.8：</strong>$A,B$是集合，$f:A \to B$是函数，有$b \in B$，$b$在$f$下的原像为${f^{ - 1}}(b)$，以集合形式表达为${a \in A: f(a)=b}$。类似的，如果$C \subset B$是子集，则${f^{ - 1}}(C)$定义为${ a \in A: f(a) \in C}$。</p>
+f(A)=\{f(a):a \in A\}</script><p><strong>定义4.8：</strong>$A,B$是集合，$f:A \to B$是函数，有$b \in B$，$b$在$f$下的原像为${f^{ - 1}}(b)$，以集合形式表达为$\{a \in A: f(a)=b\}$。类似的，如果$C \subset B$是子集，则${f^{ - 1}}(C)$定义为$\{ a \in A: f(a) \in C\}$。</p>
 <p><strong>定义4.9：</strong>如果$a,a’ \in A$不同，且$B$中的元素$f(a),f(a’)$也不相同，则函数$f:A \to B$称为单射。</p>
 <p>单射的示意图如下，是一种一一对应的关系：</p>
 <p><img src="/img/function_image.png" alt=""></p>
@@ -445,7 +445,7 @@ f(A)=\{f(a):a \in A\}</script><p><strong>定义4.8：</strong>$A,B$是集合，$
 <p>假定我们有一千名选手，现在来探讨一下如何计算这一点。在第一轮，每个选手都会与其他选手配对，一共有500场比赛。第二轮中，剩下的500名选手再次配对参加比赛，一共有250场，在第三轮，有125场。在第四轮则会遇到问题，现在选手是奇数个了，那必然会出现选手轮空。好，现在比赛继续进行，最终会得到一个总数。这个答案是999，比选手的人数少1，这是巧合吗？对于别的比赛人数也是如此吗？</p>
 <p>答案是肯定的，为了证明这一点，这里展示了找到巧妙双射的技巧。我们只需要观察到这样一个事实，每个选手都输掉一场比赛，所以如果我们要计算比赛次数，只需要计算失败选手的人数，只有一个没有失败的选手：胜利者，所以有999场比赛。</p>
 <p>让我们把这个问题用集合的语言来描述，如果$X$是比赛的集合，而$Y$是选手的集合，我们可以定义这样一个函数$f:X \to Y$，称$f(x)$是关于失败者$x$的函数。$f(X)$的像是失败者的子集$L \subset Y$，实际上，$f$定义了关于$X$和$L$的双射，这意味着$X$和$L$有相同的大小。而$|L| = |Y| - 1$，所以有$n$个选手则有$n-1$场比赛。</p>
-<p>为了确保理解这个过程，将示例扩展成双淘汰赛，即选手输了两场才会被淘汰。那么现在对任意的$y \in Y$有${f^{ - 1} }(y) = { x \in X:f(x) = y} $的大小为2，胜利者有可能一场没输或者只输了一场，这种情况下肯定不是双射，那么就无法计算出确切的场数，但可以得到一个大概的边界。</p>
+<p>为了确保理解这个过程，将示例扩展成双淘汰赛，即选手输了两场才会被淘汰。那么现在对任意的$y \in Y$有${f^{ - 1} }(y) = \{ x \in X:f(x) = y\} $的大小为2，胜利者有可能一场没输或者只输了一场，这种情况下肯定不是双射，那么就无法计算出确切的场数，但可以得到一个大概的边界。</p>
 <p>这种常规的策略可以在你需要计数或者估计集合大小的时候使用。想象一下，你想估计城市中无家可归的人数，则必须找到一种巧妙的方法，通过观察他们的行为的残存的影响来隐式的对其计数，这恰恰是在要计算的集合接近双射或者双倍或三倍覆盖时寻找函数。</p>
 <p>以下是找到巧妙双射的另一个例子。给定集合$X$，我们假定数量：</p>
 <p><img src="/img/4.1.png" alt=""></p>
@@ -469,7 +469,7 @@ fib(n) = fib(n - 1) + fib(n - 2)</script><p>同时$fib(0) = fib(1) = 1$。</p>
 <p><img src="\img\4.4.png" alt=""></p>
 <p>则必有：</p>
 <p><img src="\img\4.5.png" alt=""></p>
-<p>假设集合$X = { 1,2, \ldots ,n + 1} $，现在将其分成两部分，一部分是两个元素都从$Y = X - { n + 1}  = { 1,2, \ldots ,n} $中选择。另一部分则是取的两个元素有一个是$n+1$，显然，两部分加起来就是我们要证明的问题。</p>
+<p>假设集合$X = \{ 1,2, \ldots ,n + 1\} $，现在将其分成两部分，一部分是两个元素都从$Y = X - \{ n + 1\}  = \{ 1,2, \ldots ,n\} $中选择。另一部分则是取的两个元素有一个是$n+1$，显然，两部分加起来就是我们要证明的问题。</p>
 <p>第一部分，有：</p>
 <p><img src="\img\4.6.png" alt=""></p>
 <p>答案应为命题假设所述$1 + 2 +  \cdots  + n - 1$。</p>
@@ -525,6 +525,10 @@ fib(n) = fib(n - 1) + fib(n - 2)</script><p>同时$fib(0) = fib(1) = 1$。</p>
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/16/Programmer-and-Mathematics-三/" rel="prev" title="Programmer-and-Mathematics-三">
+                Programmer-and-Mathematics-三 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -601,7 +605,7 @@ fib(n) = fib(n - 1) + fib(n - 2)</script><p>同时$fib(0) = fib(1) = 1$。</p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
