@@ -88,7 +88,7 @@
 <meta property="og:description" content="TextCNN文本分类问题常见的解决方式是抽取文本的特征，比如使用doc2evc或者LDA模型将文本转换成一个固定维度上的特征向量，然后在基于抽取的特征基础上训练一个分类器。TextCNN的本质也是如此，其通过一维卷积来获取句子中的n-gram的特征表示。TextCNN对于文本浅层特征的抽取能力很强，在短文本领域如搜索、对话领域专注于意图分类时效果很好，应用广泛且速度快；但在长文本领域，由于其主要">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://nangongtianyi.github.io/img/textcnn.png">
-<meta property="og:updated_time" content="2021-03-21T13:52:49.417Z">
+<meta property="og:updated_time" content="2021-03-23T14:18:35.269Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文本分类">
 <meta name="twitter:description" content="TextCNN文本分类问题常见的解决方式是抽取文本的特征，比如使用doc2evc或者LDA模型将文本转换成一个固定维度上的特征向量，然后在基于抽取的特征基础上训练一个分类器。TextCNN的本质也是如此，其通过一维卷积来获取句子中的n-gram的特征表示。TextCNN对于文本浅层特征的抽取能力很强，在短文本领域如搜索、对话领域专注于意图分类时效果很好，应用广泛且速度快；但在长文本领域，由于其主要">
@@ -387,6 +387,7 @@
 
       
         <h1 id="TextCNN"><a href="#TextCNN" class="headerlink" title="TextCNN"></a>TextCNN</h1><p>文本分类问题常见的解决方式是抽取文本的特征，比如使用doc2evc或者LDA模型将文本转换成一个固定维度上的特征向量，然后在基于抽取的特征基础上训练一个分类器。TextCNN的本质也是如此，其通过一维卷积来获取句子中的n-gram的特征表示。TextCNN对于文本浅层特征的抽取能力很强，在短文本领域如搜索、对话领域专注于意图分类时效果很好，应用广泛且速度快；但在长文本领域，由于其主要靠filter窗口来抽取特征，因此长距离建模能力受限，且对语序不敏感。以下是经典的TextCnn模型结构：</p>
+<a id="more"></a>
 <p><img src="/img/textcnn.png" alt=""></p>
 <ol>
 <li><p>嵌入层</p>
